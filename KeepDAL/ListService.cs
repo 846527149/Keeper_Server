@@ -14,6 +14,30 @@ namespace KeepDAL
     public class ListService
     {
         /// <summary>
+        /// 最近6月趋势图
+        /// </summary>
+        /// <returns></returns>
+        public ListResult<ChartsEntity> LineChartsList() {
+            try
+            {
+                using (KeepDbContext context = new KeepDbContext())
+                {
+                    string sql = string.Format(@"select top 6 sum(price) as Price,BillName from bill 
+                                                inner join Cycle 
+                                                on Cycle.Id=bill.Cycle
+                                                group by billname
+                                                order by Price
+                                                ");
+                    List<ChartsEntity> result = context.Database.SqlQuery<ChartsEntity>(sql).ToList();
+                    return new ListResult<ChartsEntity>(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ListResult<ChartsEntity>(1, ex.Message);
+            }
+        }
+        /// <summary>
         /// 获取周期分类图标数据
         /// </summary>
         /// <param name="Cycle"></param>
@@ -29,7 +53,7 @@ namespace KeepDAL
                                                 group by Category");
                     var param = new List<SqlParameter>();
                     param.Add(new SqlParameter("@Cycle", Cycle));
-                    List<ChartsEntity> result= context.Database.SqlQuery<ChartsEntity>(sql, param).ToList();
+                    List<ChartsEntity> result= context.Database.SqlQuery<ChartsEntity>(sql, param.ToArray()).ToList();
                     return new ListResult<ChartsEntity>(result);
                 }
             }
