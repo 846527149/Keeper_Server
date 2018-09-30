@@ -13,6 +13,16 @@ namespace Keep.ApiControllers
     public class ListController : ApiController
     {
         /// <summary>
+        /// 获取周期分类图标数据
+        /// </summary>
+        /// <param name="Cycle"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ListResult<ChartsEntity> PieChartsList(Guid Cycle)
+        {
+            return new ListService().PieChartsList(Cycle);
+        }
+        /// <summary>
         /// 周期列表
         /// </summary>
         /// <returns></returns>

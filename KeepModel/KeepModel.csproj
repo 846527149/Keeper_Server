@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\BillEntity.cs" />
+    <Compile Include="Entity\ChartsEntity.cs" />
     <Compile Include="Entity\CycleEntity.cs" />
     <Compile Include="KeepDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

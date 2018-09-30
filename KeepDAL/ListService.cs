@@ -4,26 +4,54 @@ using KeepModel;
 using KeepModel.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KeepDAL
 {
-   public  class ListService
+    public class ListService
     {
+        /// <summary>
+        /// 获取周期分类图标数据
+        /// </summary>
+        /// <param name="Cycle"></param>
+        /// <returns></returns>
+        public ListResult<ChartsEntity> PieChartsList(Guid Cycle)
+        {
+            try
+            {
+                using (KeepDbContext context = new KeepDbContext())
+                {
+                    string sql = string.Format(@"select sum(price) as Price,Category from  bill
+                                                where　Cycle=@Cycle
+                                                group by Category");
+                    var param = new List<SqlParameter>();
+                    param.Add(new SqlParameter("@Cycle", Cycle));
+                    List<ChartsEntity> result= context.Database.SqlQuery<ChartsEntity>(sql, param).ToList();
+                    return new ListResult<ChartsEntity>(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ListResult<ChartsEntity>(1, ex.Message);
+            }
+        }
         /// <summary>
         /// 周期列表
         /// </summary>
         /// <returns></returns>
-        public ListResult<CycleEntity> CycleList() {
+        public ListResult<CycleEntity> CycleList()
+        {
             try
             {
                 KeepDbContext context = new KeepDbContext();
                 var list = context.Cycle.ToList();
                 return new ListResult<CycleEntity>(list);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ComLogger.ErrorTag("CycleList", ex.Message);
                 return new ListResult<CycleEntity>(1, ex.Message);
             }
