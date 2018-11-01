@@ -244,3 +244,6 @@ F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\obj\Debug\Keep.csproj.CoreCompileIn
 F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\obj\Debug\Keep.csproj.CopyComplete
 F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\obj\Debug\Keep.dll
 F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\obj\Debug\Keep.pdb
+F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\bin\System.Web.Cors.dll
+F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\bin\System.Web.Http.Cors.dll
+F:\houyongwei\Keeper\Keeper_Server\Keep\Keep\bin\System.Web.Http.Cors.xml

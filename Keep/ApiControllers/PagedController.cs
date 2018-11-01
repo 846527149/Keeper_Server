@@ -38,5 +38,34 @@ namespace Keep.ApiControllers
         {
             return new PagedService().BillIndexPagedList(page, limit);
         }
+        /// <summary>
+        /// 阿里促销商品
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public PagedResult<AliGoodsEntity> AliGoodsPagedList([FromBody]QueryParams @params)
+        {
+            return new PagedService().AliGoodsPagedList(@params.page, @params.limit, @params.title);
+        }
+        /// <summary>
+        /// 查询参数
+        /// </summary>
+        public class QueryParams {
+            /// <summary>
+            /// 当前页
+            /// </summary>
+            public int page { get; set; }
+            /// <summary>
+            /// 每页显示
+            /// </summary>
+            public int limit { get; set; }
+            /// <summary>
+            /// 商品名称
+            /// </summary>
+            public string title { get; set; }
+        }
     }
 }

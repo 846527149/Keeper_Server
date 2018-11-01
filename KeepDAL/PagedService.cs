@@ -15,6 +15,37 @@ namespace KeepDAL
     public class PagedService
     {
         /// <summary>
+        /// 阿里促销商品
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        public PagedResult<AliGoodsEntity> AliGoodsPagedList(int page, int limit,string title) {
+            try
+            {
+                using (KeepDbContext context = new KeepDbContext())
+                {
+                    var total = new SqlParameter("@total", SqlDbType.Int);
+                    total.Direction = ParameterDirection.Output;
+                    var pageParam = new SqlParameter("@page", SqlDbType.Int);
+                    pageParam.Value = page;
+                    var limitParam = new SqlParameter("@limit", SqlDbType.Int);
+                    limitParam.Value = limit;
+                    var titleParam = new SqlParameter("@title", SqlDbType.VarChar);
+                    titleParam.Value = title;
+                    var parm = new SqlParameter[] { pageParam, limitParam, titleParam, total };
+                    string sql = @"EXEC [dbo].[SP_QueryAliGoodsList] @page,@limit,@title,@total OUTPUT";
+                    List<AliGoodsEntity> list = context.Database.SqlQuery<AliGoodsEntity>(sql, parm).ToList();
+                    return new PagedResult<AliGoodsEntity>(page, limit, (int)total.Value, list);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new PagedResult<AliGoodsEntity>(1, ex.Message);
+            }
+        }
+        /// <summary>
         /// 首页记录
         /// </summary>
         /// <param name="page"></param>
